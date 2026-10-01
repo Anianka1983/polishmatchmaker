@@ -31,13 +31,31 @@
 <main id="main">
 <section class="page-hero"><div class="wrap"><span class="eyebrow">Kontakt</span>
 <h1>Porozmawiajmy</h1>
-<p class="lead">Pierwszy krok to bezpłatna, poufna rozmowa. Bez zobowiązań.</p></div></section><section><div class="wrap grid2" style="align-items:start"><div><h2>Jak umówić rozmowę</h2>
-<div class="steps" style="grid-template-columns:1fr;gap:6px">
-<div class="step"><span class="num">I</span><p>Wypełnij krótki formularz na stronie Sparked Connection. W polu wiadomości napisz, że wolisz rozmowę po polsku.</p></div>
-<div class="step"><span class="num">II</span><p>Odezwę się, aby ustalić dogodny termin i język rozmowy.</p></div>
-<div class="step"><span class="num">III</span><p>Poznajemy się, bez presji i bez zobowiązań.</p></div></div>
-<div class="btns"><a class="btn btn-navy" href="https://sparkedconnection.com/enquiry/" target="_blank" rel="noopener">Przejdź do formularza</a></div>
-<p class="note" style="margin-top:1rem">Formularz znajduje się na stronie partnera, Sparked Connection, i jest w języku angielskim.</p></div>
+<p class="lead">Pierwszy krok to bezpłatna, poufna rozmowa. Bez zobowiązań.</p></div></section><section><div class="wrap grid2" style="align-items:start"><div class="card"><h2>Umów bezpłatną rozmowę</h2>
+<p class="note" style="margin-bottom:1.4rem">Pola oznaczone * są wymagane. Rozmowę można prowadzić po polsku lub po angielsku.</p>
+<form id="enquiry" class="enq" data-lang="pl" novalidate accept-charset="UTF-8">
+<div class="hp" aria-hidden="true"><label for="website">Website</label><input type="text" id="website" name="website" tabindex="-1" autocomplete="off"></div>
+<div class="row2"><div class="fld"><label for="fn">Imię *</label><input id="fn" name="first_name" type="text" autocomplete="given-name" required></div>
+<div class="fld"><label for="ln">Nazwisko *</label><input id="ln" name="last_name" type="text" autocomplete="family-name" required></div></div>
+<div class="fld"><label for="em">Adres e-mail *</label><input id="em" name="fi-sender-email" type="email" autocomplete="email" required></div>
+<div class="fld"><label for="ph">Telefon</label><div class="phone"><select name="fi-select-countryCode" aria-label="Numer kierunkowy"><option>+44</option><option>+48</option><option>+353</option><option>+1</option><option>Inny</option></select><input id="ph" name="fi-text-phoneLocal" type="tel" autocomplete="tel-national"></div></div>
+<div class="row2"><div class="fld"><label for="lc">Miejscowość / region w Wielkiej Brytanii *</label><input id="lc" name="location" type="text" required></div>
+<div class="fld"><label for="lg">Preferowany język rozmowy *</label><select id="lg" name="preferred_language" required><option value="">Wybierz…</option><option value="Polish">Polski</option><option value="English">Angielski</option><option value="Either">Obojętnie</option></select></div></div>
+<div class="row2"><div class="fld"><label for="am">Jestem</label><select id="am" name="i_am"><option value="">Wybierz…</option><option value="Woman">Kobietą</option><option value="Man">Mężczyzną</option><option value="Prefer to say in conversation">Wolę powiedzieć w rozmowie</option></select></div>
+<div class="fld"><label for="lf">Szukam</label><select id="lf" name="looking_for"><option value="">Wybierz…</option><option value="A woman">Kobiety</option><option value="A man">Mężczyzny</option><option value="Prefer to say in conversation">Wolę powiedzieć w rozmowie</option></select></div></div>
+<div class="row2"><div class="fld"><label for="ag">Przedział wiekowy</label><select id="ag" name="age_range"><option value="">Wybierz…</option><option>25-34</option><option>35-44</option><option>45-54</option><option>55-64</option><option>65+</option></select></div>
+<div class="fld"><label for="pl">Zainteresowanie</label><select id="pl" name="interested_in"><option value="Not sure yet">Jeszcze nie wiem</option><option value="Bronze (free)">Bronze (bezpłatnie)</option><option value="Gold">Gold</option><option value="Platinum">Platinum</option></select></div></div>
+<div class="fld"><label for="hd">Skąd Pan/Pani o nas wie?</label><select id="hd" name="heard_about"><option value="">Wybierz…</option><option>Instagram</option><option>Facebook</option><option>LinkedIn</option><option>Google</option><option>Polecenie</option><option>Wydarzenie</option><option>Inne</option></select></div>
+<div class="fld"><label for="ms">Kilka słów o sobie i o tym, kogo Pan/Pani szuka</label><textarea id="ms" name="message" rows="5"></textarea></div>
+<label class="chk"><input type="checkbox" name="consent_privacy" value="Yes" required> <span>Wyrażam zgodę na przetwarzanie moich danych w celu odpowiedzi na to zapytanie, zgodnie z <a href="https://sparkedconnection.com/privacy-notice" target="_blank" rel="noopener">Polityką prywatności (po angielsku)</a>. *</span></label>
+<div class="cf-turnstile" data-sitekey="0x4AAAAAAExsZ2hUtz55GptX"></div>
+<div id="enq-error" class="enq-error" role="alert"></div>
+<button type="submit" id="enq-submit" class="btn btn-gold">Wyślij zapytanie</button>
+<p class="note" style="margin-top:.9rem">Odpowiem w ciągu kilku dni roboczych. Zapytanie jest poufne i niezobowiązujące.</p>
+</form>
+<div id="enq-success" class="enq-success" role="status"><span class="tick">&#10003;</span><h3>Dziękuję, zapytanie dotarło</h3><p>Odezwę się wkrótce, aby ustalić dogodny termin i język rozmowy.</p></div>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script src="/assets/enquiry.js" defer></script></div>
 <div class="contact-box"><ul class="kv">
 <li><b>E-mail</b><span><a href="mailto:hello@sparkedconnection.com?subject=Zapytanie - Dobrani">hello@sparkedconnection.com</a></span></li>
 <li><b>Języki</b><span>Polski, angielski</span></li>

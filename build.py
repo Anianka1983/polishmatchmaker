@@ -254,13 +254,33 @@ def body_contact(l):
     hero = f'''<section class="page-hero"><div class="wrap"><span class="eyebrow">{t("Kontakt","Contact")}</span>
 <h1>{t("Porozmawiajmy","Let us talk")}</h1>
 <p class="lead">{t("Pierwszy krok to bezpłatna, poufna rozmowa. Bez zobowiązań.","The first step is a free, confidential conversation. No commitment.")}</p></div></section>'''
-    main = f'''<section><div class="wrap grid2" style="align-items:start"><div><h2>{t("Jak umówić rozmowę","How to arrange a conversation")}</h2>
-<div class="steps" style="grid-template-columns:1fr;gap:6px">
-<div class="step"><span class="num">I</span><p>{t("Wypełnij krótki formularz na stronie Sparked Connection. W polu wiadomości napisz, że wolisz rozmowę po polsku.","Complete the short enquiry form on the Sparked Connection website. In the message field, mention if you prefer Polish.")}</p></div>
-<div class="step"><span class="num">II</span><p>{t("Odezwę się, aby ustalić dogodny termin i język rozmowy.","I will get in touch to agree a convenient time and the language of our conversation.")}</p></div>
-<div class="step"><span class="num">III</span><p>{t("Poznajemy się, bez presji i bez zobowiązań.","We get to know each other, with no pressure and no obligation.")}</p></div></div>
-<div class="btns"><a class="btn btn-navy" href="{ENQUIRY}" target="_blank" rel="noopener">{t("Przejdź do formularza","Go to the enquiry form")}</a></div>
-<p class="note" style="margin-top:1rem">{t("Formularz znajduje się na stronie partnera, Sparked Connection, i jest w języku angielskim.","The form sits on the website of our partner, Sparked Connection, and is in English.")}</p></div>
+    def f(pl,en): return t(pl,en)
+    form = f"""<form id="enquiry" class="enq" data-lang="{l}" novalidate accept-charset="UTF-8">
+<div class="hp" aria-hidden="true"><label for="website">Website</label><input type="text" id="website" name="website" tabindex="-1" autocomplete="off"></div>
+<div class="row2"><div class="fld"><label for="fn">{f("Imię","First name")} *</label><input id="fn" name="first_name" type="text" autocomplete="given-name" required></div>
+<div class="fld"><label for="ln">{f("Nazwisko","Last name")} *</label><input id="ln" name="last_name" type="text" autocomplete="family-name" required></div></div>
+<div class="fld"><label for="em">{f("Adres e-mail","Email address")} *</label><input id="em" name="fi-sender-email" type="email" autocomplete="email" required></div>
+<div class="fld"><label for="ph">{f("Telefon","Phone")}</label><div class="phone"><select name="fi-select-countryCode" aria-label="{f("Numer kierunkowy","Country code")}"><option>+44</option><option>+48</option><option>+353</option><option>+1</option><option>{f("Inny","Other")}</option></select><input id="ph" name="fi-text-phoneLocal" type="tel" autocomplete="tel-national"></div></div>
+<div class="row2"><div class="fld"><label for="lc">{f("Miejscowość / region w Wielkiej Brytanii","Town or region in the UK")} *</label><input id="lc" name="location" type="text" required></div>
+<div class="fld"><label for="lg">{f("Preferowany język rozmowy","Preferred language for our conversation")} *</label><select id="lg" name="preferred_language" required><option value="">{f("Wybierz…","Select…")}</option><option value="Polish">{f("Polski","Polish")}</option><option value="English">{f("Angielski","English")}</option><option value="Either">{f("Obojętnie","Either")}</option></select></div></div>
+<div class="row2"><div class="fld"><label for="am">{f("Jestem","I am")}</label><select id="am" name="i_am"><option value="">{f("Wybierz…","Select…")}</option><option value="Woman">{f("Kobietą","A woman")}</option><option value="Man">{f("Mężczyzną","A man")}</option><option value="Prefer to say in conversation">{f("Wolę powiedzieć w rozmowie","I would rather say in conversation")}</option></select></div>
+<div class="fld"><label for="lf">{f("Szukam","I am looking for")}</label><select id="lf" name="looking_for"><option value="">{f("Wybierz…","Select…")}</option><option value="A woman">{f("Kobiety","A woman")}</option><option value="A man">{f("Mężczyzny","A man")}</option><option value="Prefer to say in conversation">{f("Wolę powiedzieć w rozmowie","I would rather say in conversation")}</option></select></div></div>
+<div class="row2"><div class="fld"><label for="ag">{f("Przedział wiekowy","Age range")}</label><select id="ag" name="age_range"><option value="">{f("Wybierz…","Select…")}</option><option>25-34</option><option>35-44</option><option>45-54</option><option>55-64</option><option>65+</option></select></div>
+<div class="fld"><label for="pl">{f("Zainteresowanie","Interested in")}</label><select id="pl" name="interested_in"><option value="Not sure yet">{f("Jeszcze nie wiem","Not sure yet")}</option><option value="Bronze (free)">Bronze ({f("bezpłatnie","free")})</option><option value="Gold">Gold</option><option value="Platinum">Platinum</option></select></div></div>
+<div class="fld"><label for="hd">{f("Skąd Pan/Pani o nas wie?","How did you hear about us?")}</label><select id="hd" name="heard_about"><option value="">{f("Wybierz…","Select…")}</option><option>Instagram</option><option>Facebook</option><option>LinkedIn</option><option>Google</option><option>{f("Polecenie","Recommendation")}</option><option>{f("Wydarzenie","An event")}</option><option>{f("Inne","Other")}</option></select></div>
+<div class="fld"><label for="ms">{f("Kilka słów o sobie i o tym, kogo Pan/Pani szuka","A few words about yourself and what you are looking for")}</label><textarea id="ms" name="message" rows="5"></textarea></div>
+<label class="chk"><input type="checkbox" name="consent_privacy" value="Yes" required> <span>{f(f'Wyrażam zgodę na przetwarzanie moich danych w celu odpowiedzi na to zapytanie, zgodnie z <a href="{PRIVACY}" target="_blank" rel="noopener">Polityką prywatności (po angielsku)</a>. *', f'I agree to my details being used to respond to this enquiry, as set out in the <a href="{PRIVACY}" target="_blank" rel="noopener">Privacy Notice</a>. *')}</span></label>
+<div class="cf-turnstile" data-sitekey="0x4AAAAAAExsZ2hUtz55GptX"></div>
+<div id="enq-error" class="enq-error" role="alert"></div>
+<button type="submit" id="enq-submit" class="btn btn-gold">{f("Wyślij zapytanie","Send enquiry")}</button>
+<p class="note" style="margin-top:.9rem">{f("Odpowiem w ciągu kilku dni roboczych. Zapytanie jest poufne i niezobowiązujące.","I will reply within a few working days. Your enquiry is confidential and carries no obligation.")}</p>
+</form>
+<div id="enq-success" class="enq-success" role="status"><span class="tick">&#10003;</span><h3>{f("Dziękuję, zapytanie dotarło","Thank you, your enquiry has arrived")}</h3><p>{f("Odezwę się wkrótce, aby ustalić dogodny termin i język rozmowy.","I will be in touch shortly to agree a convenient time and the language of our conversation.")}</p></div>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+<script src="/assets/enquiry.js" defer></script>"""
+    main = f'''<section><div class="wrap grid2" style="align-items:start"><div class="card"><h2>{t("Umów bezpłatną rozmowę","Book a free consultation")}</h2>
+<p class="note" style="margin-bottom:1.4rem">{t("Pola oznaczone * są wymagane. Rozmowę można prowadzić po polsku lub po angielsku.","Fields marked * are required. We can speak in Polish or in English.")}</p>
+{form}</div>
 <div class="contact-box"><ul class="kv">
 <li><b>{t("E-mail","Email")}</b><span><a href="mailto:{EMAIL}?subject={subj}">{EMAIL}</a></span></li>
 <li><b>{t("Języki","Languages")}</b><span>{t("Polski, angielski","Polish, English")}</span></li>
