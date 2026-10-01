@@ -155,7 +155,7 @@ def body_home(l):
       "I am the founder and lead matchmaker of Sparked Connection. I have been matchmaking for years - first among friends and family, now professionally. After years of working with driven, busy people I kept seeing the same story: a career in order, a personal life on hold.")}</p>
 <p>{t("Jako Polka mieszkająca w Wielkiej Brytanii dobrze znam świat, w którym trzeba pogodzić wymagającą pracę, dwie kultury i marzenie o prawdziwej bliskości. Jestem zaangażowana na każdym etapie - tego nie zrobi żaden algorytm.",
       "As a Polish woman living in the UK, I know the world in which demanding work, two cultures and the wish for real closeness have to fit together. I am involved at every step - something no algorithm can do.")}</p>
-<a class="btn btn-navy" href="{url("about", l)}">{t("Poznaj mnie bliżej","Get to know me")}</a></div></div></section>'''
+<a class="btn btn-gold" href="{url("contact", l)}">{t("Umów konsultację","Book a consultation")}</a></div></div></section>'''
     faq = f'''<section class="alt"><div class="wrap"><div class="head"><span class="eyebrow">{t("Pytania","Questions")}</span><h2>{t("Najczęstsze pytania","Frequently asked questions")}</h2></div>{faq_html(l)}</div></section>'''
     return hero + trust + namestrip + why + steps + about + band(l) + faq + cta(l)
 
