@@ -343,7 +343,7 @@ def page(key, l):
 <meta property="og:url" content="{me}"><meta property="og:locale" content="{"pl_PL" if P else "en_GB"}"><meta property="og:locale:alternate" content="{"en_GB" if P else "pl_PL"}">
 <meta property="og:image" content="{PHOTO}"><meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#1E3151">
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml"><link rel="icon" href="/assets/favicon-32.png" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="icon" href="/assets/favicon.svg?v=2" type="image/svg+xml"><link rel="icon" href="/assets/favicon-32.png?v=2" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&family=Josefin+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css">
@@ -408,7 +408,7 @@ def main():
     write("/robots.txt", f"User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n")
     write("/CNAME", DOMAIN.replace("https://", "") + "\n")
     write("/.nojekyll", "")
-    write("/assets/favicon.svg", '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="#1E3151"/><circle cx="23" cy="27" r="6.5" fill="#CE7E98"/><circle cx="41" cy="27" r="6.5" fill="#E6A961"/><path d="M15 46c2-7 8-11 17-11s15 4 17 11" stroke="#E6A961" stroke-width="3" stroke-linecap="round" fill="none"/></svg>')
+    write("/assets/favicon.svg?v=2", '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="#1E3151"/><circle cx="23" cy="27" r="6.5" fill="#CE7E98"/><circle cx="41" cy="27" r="6.5" fill="#E6A961"/><path d="M15 46c2-7 8-11 17-11s15 4 17 11" stroke="#E6A961" stroke-width="3" stroke-linecap="round" fill="none"/></svg>')
     write("/404.html", '''<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>404 | Dobrani - Polish Matchmaker</title><meta name="robots" content="noindex">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Inter:wght@400&display=swap" rel="stylesheet"><link rel="stylesheet" href="/assets/style.css"></head>
 <body><main class="wrap center" style="padding:120px 24px"><span class="eyebrow">404</span><h1>Nie znaleziono strony / Page not found</h1>
