@@ -131,7 +131,7 @@ def body_home(l):
 <li><a href="{ABIA}" target="_blank" rel="noopener">{t("Zarejestrowani i zatwierdzeni przez ABIA","ABIA registered &amp; approved")}</a></li>
 <li>{t("Pełna poufność","Complete confidentiality")}</li><li>{t("Bezpłatna rozmowa wstępna","Free initial consultation")}</li>
 <li>{t("Po polsku i po angielsku","Polish &amp; English")}</li></ul></div></div>'''
-    namestrip = f'''<div class="namestrip"><div class="wrap"><span class="nl"></span><p>{t("<b>Dobrani</b> (doh-BRAH-ni) - po polsku „dobrani do siebie”: osoby, które do siebie pasują.","<b>Dobrani</b> (doh-BRAH-nee) - Polish for “the well-matched”: people who suit one another.")}</p><span class="nl"></span></div></div>'''
+    namestrip = "" if P else f'''<div class="namestrip"><div class="wrap"><span class="nl"></span><p>{t("<b>Dobrani</b> (doh-BRAH-ni) - po polsku „dobrani do siebie”: osoby, które do siebie pasują.","<b>Dobrani</b> (doh-BRAH-nee) - Polish for “the well-matched”: people who suit one another.")}</p><span class="nl"></span></div></div>'''
     why = f'''<section><div class="wrap"><div class="head"><span class="eyebrow">{t("Dlaczego polska swatka","Why a Polish matchmaker")}</span>
 <h2>{t("Życie między dwiema kulturami ma swoje wyzwania - także w miłości","Living between two cultures has its challenges - in love as well")}</h2>
 <p class="lead">{t("Wiele osób o polskich korzeniach porusza się dziś między dwoma językami, dwoma zestawami oczekiwań i często dwoma rodzinami, z których każda ma własne wyobrażenie o idealnym partnerze. Aplikacje randkowe tego nie uwzględniają. Dobra swatka - tak.",
