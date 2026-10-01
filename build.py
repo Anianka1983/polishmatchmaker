@@ -202,7 +202,7 @@ def body_offer(l):
   [t("Dostęp do Singles Network","Access to the Singles Network"),t("Możliwość udziału w wydarzeniach (niektóre biletowane osobno)","Option to attend events (some ticketed separately)"),t("Bezpłatna rozmowa wstępna","Free initial consultation")])}
 {tier(l,"Gold","£1,500",t("12 miesięcy","12 months"),
   [t("Konsultacje jeden na jeden","One-to-one consultations"),t("Indywidualne poszukiwanie dopasowań","A bespoke search for your matches"),t("Coaching randkowy","Dating coaching"),t("Dostęp VIP do wydarzeń","VIP event access"),t("Profesjonalna sesja zdjęciowa","Professional photoshoot")],
-  feat=True,badge=t("Indywidualna opieka","Personal service"))}
+  feat=True,badge=t("Indywidualne podejście","Personal service"))}
 {tier(l,"Platinum","£2,800",t("dla dwóch osób","for two people"),
   [t("Pełne doświadczenie Gold dla każdej z dwóch osób","The full Gold experience for each of two people"),t("Priorytetowe dopasowanie","Priority matching"),t("Dedykowana swatka","A dedicated matchmaker")])}
 </div><p class="note center" style="margin-top:1.8rem">{t(f'Aktualne ceny i warunki znajdą Państwo na stronie <a href="{PLANS}" target="_blank" rel="noopener">Sparked Connection (po angielsku)</a>. Opłaty za pakiety płatne są z góry i podlegają <a href="{TERMS}" target="_blank" rel="noopener">Regulaminowi</a> oraz <a href="{REFUND}" target="_blank" rel="noopener">Polityce zwrotów i rezygnacji</a> (po angielsku).',
