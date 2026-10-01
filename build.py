@@ -1,3 +1,4 @@
+import re
 #!/usr/bin/env python3
 """Builds the bilingual Polish Matchmaker site (Polish at /, English at /en/).
 Run:  python3 build.py        (rewrites all HTML pages, sitemap and robots.txt)
@@ -149,7 +150,7 @@ def body_home(l):
 <div class="step"><span class="num">III</span><h3>{t("Przedstawienie z intencją","Introduced with intention")}</h3><p>{t("Gdy dopasowanie jest właściwe, następuje dyskretne, spokojne przedstawienie. Bez niezręczności i domysłów.","When the match is right, an introduction is made discreetly and calmly. No awkwardness, no guesswork.")}</p></div>
 </div><div class="center" style="margin-top:2.4rem"><a class="btn btn-line" href="{url("how", l)}">{t("Zobacz szczegóły","See the details")}</a></div></div></section>'''
     about = f'''<section><div class="wrap grid2"><div><img class="portrait" src="{PHOTO}" alt="{t("Ania, założycielka i główna swatka Dobrani","Ania, founder and lead matchmaker of Dobrani")}" width="360" height="450" loading="lazy"></div>
-<div><span class="eyebrow">{t("Osoba stojąca za każdym dopasowaniem","The person behind every match")}</span><h2>{t("Poznaj Anię, założycielkę Dobrani","Meet Ania, founder of Dobrani")}</h2><p class="aka">{t("(Anna dla moich anglojęzycznych klientów)","(Anna to my English-speaking clients)")}</p>
+<div><span class="eyebrow">{t("Osoba stojąca za każdym dopasowaniem","The person behind every match")}</span><h2>{t("Poznaj Anię, założycielkę Dobrani","Meet Ania, founder of Dobrani")}</h2><p class="aka">{t("","or simply Anna, to my English-speaking clients")}</p>
 <p>{t("Jestem założycielką i główną swatką Sparked Connection. Swataniem zajmuję się od lat - najpierw wśród przyjaciół i rodziny, dziś zawodowo. Po latach pracy z ambitnymi, zapracowanymi ludźmi widziałam wciąż tę samą historię: kariera ułożona, życie prywatne w zawieszeniu.",
       "I am the founder and lead matchmaker of Sparked Connection. I have been matchmaking for years - first among friends and family, now professionally. After years of working with driven, busy people I kept seeing the same story: a career in order, a personal life on hold.")}</p>
 <p>{t("Jako Polka mieszkająca w Wielkiej Brytanii dobrze znam świat, w którym trzeba pogodzić wymagającą pracę, dwie kultury i marzenie o prawdziwej bliskości. Jestem zaangażowana na każdym etapie - tego nie zrobi żaden algorytm.",
@@ -218,7 +219,7 @@ def body_about(l):
     t = lambda pl, en: pl if P else en
     hero = f'''<section class="page-hero"><div class="wrap"><span class="eyebrow">{t("O mnie","About me")}</span>
 <h1>{t("Ania, założycielka i główna swatka","Ania, founder and lead matchmaker")}</h1>
-<p class="aka" style="margin:-.2rem 0 .6rem">{t("(Anna dla moich anglojęzycznych klientów)","(Anna to my English-speaking clients)")}</p>
+<p class="aka" style="margin:-.2rem 0 .6rem">{t("","or simply Anna, to my English-speaking clients")}</p>
 <p class="lead">{t("Osoba, która stoi za każdym dopasowaniem.","The person behind every match.")}</p></div></section>'''
     story = f'''<section><div class="wrap grid2"><div><img class="portrait" src="{PHOTO}" alt="{t("Ania, założycielka i główna swatka Dobrani","Ania, founder and lead matchmaker of Dobrani")}" width="360" height="450" loading="lazy"></div>
 <div><h2>{t("Skąd to się wzięło","How it began")}</h2>
@@ -387,6 +388,7 @@ def page(key, l):
 def write(path, content):
     full = os.path.join(ROOT, path.lstrip("/"))
     if full.endswith("/"): full = os.path.join(full, "index.html")
+    content = re.sub(r'<p class="aka"[^>]*></p>\s*', "", content)
     os.makedirs(os.path.dirname(full), exist_ok=True)
     with open(full, "w", encoding="utf-8") as f: f.write(content)
 
