@@ -41,8 +41,8 @@ URLS = {
     "contact": ("/kontakt/",       "/en/contact/"),
 }
 NAV = {
-    "pl": [("home","Strona główna"),("how","Jak to działa"),("offer","Oferta"),("about","O mnie"),("contact","Kontakt")],
-    "en": [("home","Home"),("how","How it works"),("offer","Services"),("about","About"),("contact","Contact")],
+    "pl": [("home","Strona główna"),("how","Jak to działa"),("offer","Oferta"),("about","O mnie"),("articles","Artykuły"),("contact","Kontakt")],
+    "en": [("home","Home"),("how","How it works"),("offer","Services"),("about","About"),("articles","Articles"),("contact","Contact")],
 }
 def url(key, lang): return URLS[key][0 if lang == "pl" else 1]
 def esc(s): return html.escape(s, quote=True)
@@ -293,17 +293,17 @@ def body_contact(l):
 BODIES = {"home": body_home, "how": body_how, "offer": body_offer, "about": body_about, "contact": body_contact}
 
 META = {
- "home": {"pl": ("Dobrani by Ania | Polish Matchmaker w Londynie i UK",
+ "home": {"pl": ("Polska swatka w Londynie i UK | Dobrani by Ania – Polish Matchmaker",
                  "Dobrani by Ania, Polish Matchmaker: prywatny matchmaking po polsku i po angielsku w Londynie i całej Wielkiej Brytanii. Bezpłatna, poufna rozmowa z Anią, założycielką Sparked Connection."),
-          "en": ("Dobrani by Ania | Polish Matchmaker in London & the UK",
+          "en": ("Polish Matchmaker in London & the UK | Dobrani by Ania",
                  "Dobrani by Ania, Polish Matchmaker: private matchmaking in Polish or English across London and the UK. Book a free, confidential consultation with Ania, founder of Sparked Connection.")},
  "how":  {"pl": ("Jak działa matchmaking po polsku | Dobrani - Polish Matchmaker",
                  "Trzy kroki prywatnego matchmakingu: rozmowa wstępna, przemyślane dopasowanie i dyskretne przedstawienie. Po polsku lub po angielsku, w Londynie i całej Wielkiej Brytanii."),
           "en": ("How Polish Matchmaking Works | Dobrani - Polish Matchmaker",
                  "Three steps of private matchmaking: an initial conversation, thoughtful matching and a discreet introduction. In Polish or English, in London and across the UK.")},
- "offer":{"pl": ("Oferta i członkostwa | Dobrani - Polish Matchmaker",
+ "offer":{"pl": ("Matchmaking dla Polaków w UK: oferta i członkostwa | Dobrani",
                  "Członkostwa Bronze, Gold i Platinum oraz wydarzenia dla singli. Polska swatka w Londynie i UK w partnerstwie ze Sparked Connection."),
-          "en": ("Services & Memberships | Dobrani - Polish Matchmaker",
+          "en": ("Polish Matchmaking Services & Memberships UK | Dobrani",
                  "Bronze, Gold and Platinum memberships plus singles events. A Polish matchmaker for London and the UK, in partnership with Sparked Connection.")},
  "about":{"pl": ("O mnie - Ania, polska swatka | Dobrani - Polish Matchmaker",
                  "Ania, założycielka i główna swatka Sparked Connection. Certyfikowana swatka, zarejestrowana w ABIA, pracująca po polsku i po angielsku w Londynie i UK."),
@@ -314,6 +314,75 @@ META = {
           "en": ("Contact - Free Consultation | Dobrani - Polish Matchmaker",
                  "Book a free, confidential consultation with a Polish matchmaker. London and the whole UK, in Polish or English.")},
 }
+
+# ---------------- Articles ----------------
+from articles import ARTS
+URLS["articles"] = ("/artykuly/", "/en/articles/")
+META["articles"] = {"pl": ("Artykuły o matchmakingu i randkowaniu po polsku | Dobrani",
+                           "Praktyczne artykuły o matchmakingu, randkowaniu w Londynie i pracy ze swatką, dla Polaków mieszkających w Wielkiej Brytanii."),
+                    "en": ("Articles on Polish Matchmaking & Dating in the UK | Dobrani",
+                           "Practical articles on matchmaking, dating in London and working with a matchmaker, for Poles living in the UK.")}
+ART_BY_KEY = {}
+for _a in ARTS:
+    k = "art_" + _a["id"]
+    URLS[k] = (f'/artykuly/{_a["pl"]["slug"]}/', f'/en/articles/{_a["en"]["slug"]}/')
+    META[k] = {"pl": (_a["pl"]["title"] + " | Dobrani", _a["pl"]["desc"]), "en": (_a["en"]["title"] + " | Dobrani", _a["en"]["desc"])}
+    ART_BY_KEY[k] = _a
+
+def art_cards(l, exclude=None):
+    P = l == "pl"
+    out = ""
+    for a in ARTS:
+        if exclude and a["id"] == exclude: continue
+        d = a[l]
+        out += (f'<a class="card art-card" href="{url("art_"+a["id"], l)}"><h3>{esc(d["title"])}</h3><p>{esc(d["desc"])}</p>'
+                f'<span class="more">{"Czytaj dalej" if P else "Read more"} &rarr;</span></a>')
+    return out
+
+def body_articles(l):
+    P = l == "pl"
+    hero = f'''<section class="page-hero"><div class="wrap"><span class="eyebrow">{"Artykuły" if P else "Articles"}</span>
+<h1>{"Matchmaking i randkowanie po polsku" if P else "Polish matchmaking and dating"}</h1>
+<p class="lead">{"Praktyczne wskazówki dla Polaków w Londynie i w całej Wielkiej Brytanii." if P else "Practical guidance for Poles in London and across the UK."}</p></div></section>'''
+    return hero + f'<section><div class="wrap"><div class="grid2x">{art_cards(l)}</div></div></section>' + cta(l)
+
+def body_article(key, l):
+    P = l == "pl"
+    a = ART_BY_KEY[key]; d = a[l]
+    hero = f'''<section class="page-hero"><div class="wrap"><span class="eyebrow"><a href="{url("articles", l)}">{"Artykuły" if P else "Articles"}</a></span>
+<h1>{esc(d["title"])}</h1><p class="lead">{esc(d["lead"])}</p>
+<p class="byline">{"Autor: Ania, Dobrani · " if P else "By Ania (Anna), Dobrani · "}<time datetime="{a["date"]}">{a["date"]}</time></p></div></section>'''
+    body = "".join(f'<h2>{esc(h)}</h2>' + "".join(f'<p>{esc(p)}</p>' for p in ps) for h, ps in d["sections"])
+    links = (f'<p class="inl">{"Zobacz także: " if P else "See also: "}<a href="{url("how", l)}">{"Jak to działa" if P else "How it works"}</a> · '
+             f'<a href="{url("offer", l)}">{"Oferta" if P else "Services"}</a> · <a href="{url("contact", l)}">{"Bezpłatna rozmowa" if P else "Free consultation"}</a></p>')
+    more = f'<section class="alt"><div class="wrap"><div class="head"><h2>{"Czytaj również" if P else "Keep reading"}</h2></div><div class="grid2x">{art_cards(l, a["id"])}</div></div></section>'
+    return hero + f'<section><div class="wrap art">{body}{links}</div></section>' + more + cta(l)
+
+BODIES["articles"] = body_articles
+for _k in ART_BY_KEY:
+    BODIES[_k] = (lambda kk: (lambda l: body_article(kk, l)))(_k)
+
+_home_orig = body_home
+def body_home_x(l):
+    P = l == "pl"
+    h = _home_orig(l)
+    teaser = (f'<section class="alt"><div class="wrap"><div class="head"><span class="eyebrow">{"Artykuły" if P else "Articles"}</span>'
+              f'<h2>{"Z naszego poradnika" if P else "From our guide"}</h2></div><div class="grid2x">{art_cards(l)}</div>'
+              f'<p class="center" style="margin-top:28px"><a class="btn btn-line" href="{url("articles", l)}">{"Wszystkie artykuły" if P else "All articles"}</a></p></div></section>')
+    i = h.rfind('<section class="cta">')
+    return h[:i] + teaser + h[i:] if i != -1 else h + teaser
+BODIES["home"] = body_home_x
+
+def crumbs(key, l):
+    P = l == "pl"
+    items = [("Dobrani", DOMAIN + url("home", l))]
+    if key.startswith("art_"):
+        items.append(("Artykuły" if P else "Articles", DOMAIN + url("articles", l)))
+    if key != "home":
+        items.append((META[key][l][0].split(" | ")[0], DOMAIN + url(key, l)))
+    return {"@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": i + 1, "name": n, "item": u} for i, (n, u) in enumerate(items)]}
+
+OG_IMG = DOMAIN + "/assets/og-image.png"
 
 def jsonld(key, l):
     graph = []
@@ -328,6 +397,17 @@ def jsonld(key, l):
         graph.append({
             "@type": "FAQPage", "inLanguage": l,
             "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in faq_items(l)]})
+        graph.append({"@type": "WebSite", "@id": DOMAIN + "/#site", "url": DOMAIN + "/", "name": "Dobrani - Polish Matchmaker", "inLanguage": ["pl", "en"], "publisher": {"@id": DOMAIN + "/#org"}})
+        graph.append({"@type": "Person", "@id": DOMAIN + "/#ania", "name": "Anna (Ania)", "jobTitle": "Founder and Lead Matchmaker", "worksFor": {"@id": DOMAIN + "/#org"}, "image": PHOTO, "knowsLanguage": ["pl", "en"]})
+    else:
+        graph.append({"@type": "WebPage", "@id": DOMAIN + url(key, l) + "#page", "url": DOMAIN + url(key, l), "name": META[key][l][0], "description": META[key][l][1], "inLanguage": l, "isPartOf": {"@id": DOMAIN + "/#site"}})
+        graph.append(crumbs(key, l))
+    if key in ART_BY_KEY:
+        a = ART_BY_KEY[key]
+        graph.append({"@type": "Article", "headline": a[l]["title"], "description": a[l]["desc"], "inLanguage": l, "datePublished": a["date"], "dateModified": a["date"],
+                      "mainEntityOfPage": DOMAIN + url(key, l), "image": OG_IMG,
+                      "author": {"@type": "Person", "name": "Anna (Ania)", "url": DOMAIN + url("about", l)},
+                      "publisher": {"@type": "Organization", "name": "Dobrani - Polish Matchmaker", "url": DOMAIN + "/", "parentOrganization": {"@type": "Organization", "name": COMPANY, "url": SC_URL}}})
     return ('<script type="application/ld+json">' + json.dumps({"@context": "https://schema.org", "@graph": graph}, ensure_ascii=False) + '</script>') if graph else ""
 
 def page(key, l):
@@ -359,10 +439,13 @@ def page(key, l):
 <link rel="alternate" hreflang="pl" href="{pl_u}">
 <link rel="alternate" hreflang="en" href="{en_u}">
 <link rel="alternate" hreflang="x-default" href="{pl_u}">
-<meta property="og:type" content="website"><meta property="og:site_name" content="Dobrani - Polish Matchmaker">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta property="og:type" content="{"article" if key.startswith("art_") else "website"}"><meta property="og:site_name" content="Dobrani - Polish Matchmaker">
 <meta property="og:title" content="{esc(title)}"><meta property="og:description" content="{esc(desc)}">
 <meta property="og:url" content="{me}"><meta property="og:locale" content="{"pl_PL" if P else "en_GB"}"><meta property="og:locale:alternate" content="{"en_GB" if P else "pl_PL"}">
-<meta property="og:image" content="{PHOTO}"><meta name="twitter:card" content="summary_large_image">
+<meta property="og:image" content="{OG_IMG}"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Dobrani by Ania - Polish Matchmaker">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="{esc(title)}"><meta name="twitter:description" content="{esc(desc)}"><meta name="twitter:image" content="{OG_IMG}">
+{f'<meta property="article:published_time" content="{ART_BY_KEY[key]["date"]}"><meta property="article:author" content="Ania">' if key.startswith("art_") else ""}
 <meta name="theme-color" content="#1E3151">
 <link rel="icon" href="/assets/favicon.svg?v=2" type="image/svg+xml"><link rel="icon" href="/assets/favicon-32.png?v=2" sizes="32x32" type="image/png"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=2">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -428,6 +511,13 @@ def main():
     sm.append('</urlset>')
     write("/sitemap.xml", "\n".join(sm))
     write("/robots.txt", f"User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n")
+    llm = ["# Dobrani by Ania - Polish Matchmaker", "", "> Private matchmaking in Polish and English for Poles in London and across the UK. Delivered by Sparked Connection Ltd (UK, ABIA registered).", "", "## Pages"]
+    for key in URLS:
+        llm.append(f"- [{META[key]['en'][0]}]({DOMAIN}{url(key,'en')}): {META[key]['en'][1]}")
+    llm += ["", "## Strony po polsku"]
+    for key in URLS:
+        llm.append(f"- [{META[key]['pl'][0]}]({DOMAIN}{url(key,'pl')})")
+    write("/llms.txt", "\n".join(llm) + "\n")
     write("/CNAME", DOMAIN.replace("https://", "") + "\n")
     write("/.nojekyll", "")
     write("/assets/favicon.svg?v=2", '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><circle cx="32" cy="32" r="32" fill="#1E3151"/><circle cx="23" cy="27" r="6.5" fill="#CE7E98"/><circle cx="41" cy="27" r="6.5" fill="#E6A961"/><path d="M15 46c2-7 8-11 17-11s15 4 17 11" stroke="#E6A961" stroke-width="3" stroke-linecap="round" fill="none"/></svg>')
