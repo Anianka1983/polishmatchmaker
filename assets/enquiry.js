@@ -27,6 +27,8 @@
       el.classList.toggle('invalid',!okf);
       if(!okf){good=false;if(!first)first=el;}
     });
+    var ag=form.querySelector('[name=age]');
+    if(ag&&ag.value!==''){var n=Number(ag.value),okA=Number.isInteger(n)&&n>=18&&n<=99;ag.classList.toggle('invalid',!okA);if(!okA){good=false;if(!first)first=ag;}}
     errBox.textContent=good?'':T.req;errBox.classList.toggle('show',!good);
     if(first)first.scrollIntoView({behavior:'smooth',block:'center'});
     return good;
