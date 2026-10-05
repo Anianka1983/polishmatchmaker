@@ -128,7 +128,7 @@ def body_home(l):
 <li>{t("Osobiste dopasowanie, a nie algorytm","Personal matching, not an algorithm")}</li>
 <li>{t("Każda osoba zweryfikowana i nastawiona na poważny związek","Every person vetted and committed to a real relationship")}</li>
 <li>{t("Pełna poufność i brak zobowiązań","Complete confidentiality and no obligation")}</li></ul></aside>
-<a class="abia" href="{ABIA}" target="_blank" rel="noopener" aria-label="ABIA - Association of British Introduction Agencies"><img src="/assets/abia-badge.svg" alt="ABIA" width="64" height="64"><span><b>{t("Swatka zarejestrowana w ABIA","ABIA-registered matchmaker")}</b><i>abia.org.uk</i></span></a></div></div></section>'''
+<a class="abia" href="{ABIA}" target="_blank" rel="noopener" aria-label="ABIA - Association of British Introduction Agencies"><img src="/assets/abia-badge.svg" alt="ABIA" width="128" height="128"></a></div></div></section>'''
     trust = f'''<div class="trust"><div class="wrap"><ul>
 <li><a href="{ABIA}" target="_blank" rel="noopener">{t("Swatka zarejestrowana w ABIA","ABIA-registered matchmaker")}</a></li>
 <li>{t("Pełna poufność","Complete confidentiality")}</li><li>{t("Bezpłatna rozmowa wstępna","Free initial consultation")}</li>
