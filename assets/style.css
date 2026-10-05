@@ -204,7 +204,7 @@ details .a{padding:0 24px 22px;color:var(--muted)}
 .brand .desc{font-family:var(--label);text-transform:uppercase;letter-spacing:.3em;font-size:.64rem;line-height:1.7;color:var(--plum);font-weight:600}
 .tb-m{display:none}
 @media (max-width:1320px){.brand .rule,.brand .desc{display:none}.tb-m{display:inline}}
-@media (max-width:560px){.brand img{height:54px}.topbar{padding:6px 10px;gap:10px}.pw{font-size:.62rem;gap:10px}.pw img{width:40px;height:40px}.tb-m{font-size:.62rem}}
+@media (max-width:560px){.brand img{height:64px}.topbar{padding:6px 10px;gap:10px}.pw{font-size:.62rem;gap:10px}.pw img{width:40px;height:40px}.tb-m{font-size:.62rem}}
 .aka{font-family:var(--serif);font-style:italic;font-size:1.25rem;color:var(--gold-d);margin:-.3rem 0 1rem}
 .namestrip{background:var(--cream);padding:30px 0 0}
 .namestrip .wrap{display:flex;align-items:center;justify-content:center;gap:22px}
@@ -296,7 +296,9 @@ details .a{padding:0 24px 22px;color:var(--muted)}
 .lang .flag{width:15px;height:10px;margin-right:6px}
 @media (max-width:960px){
   .lang-li{display:none}
-  .lang-m{display:flex;margin-left:auto;margin-right:10px;font-size:.7rem}
-  .lang-m a,.lang-m span{padding:5px 9px}
+  .lang-m{display:flex;margin-left:auto;margin-right:8px;font-size:.6rem;letter-spacing:.08em;padding:2px;gap:0}
+  .lang-m a,.lang-m span{padding:4px 7px}
+  .lang-m .flag{width:12px;height:8px;margin-right:4px}
+  .burger{padding:8px 9px}
   .nav{gap:0}
 }
