@@ -290,3 +290,13 @@ details .a{padding:0 24px 22px;color:var(--muted)}
 .abia b{display:block;font-weight:600;font-size:.95rem}
 .abia i{font-style:normal;font-size:.85rem;color:#F3D9C0;border-bottom:1px solid rgba(243,217,192,.4)}
 .abia:hover i{color:#fff}
+
+/* Language switch: desktop lives in the menu, mobile sits beside the burger */
+.lang-m{display:none}
+.lang .flag{width:15px;height:10px;margin-right:6px}
+@media (max-width:960px){
+  .lang-li{display:none}
+  .lang-m{display:flex;margin-left:auto;margin-right:10px;font-size:.7rem}
+  .lang-m a,.lang-m span{padding:5px 9px}
+  .nav{gap:0}
+}

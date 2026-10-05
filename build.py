@@ -1,6 +1,6 @@
 import re
 #!/usr/bin/env python3
-"""Builds the bilingual Polish Matchmaker site (Polish at /, English at /en/).
+"""Builds the bilingual Polish Matchmaker site (English at /, Polish at /pl/).
 Run:  python3 build.py        (rewrites all HTML pages, sitemap and robots.txt)
 Edit the copy below, re-run, commit the result to GitHub.
 """
@@ -34,11 +34,11 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 
 # key -> (pl path, en path)
 URLS = {
-    "home":    ("/",               "/en/"),
-    "how":     ("/jak-to-dziala/", "/en/how-it-works/"),
-    "offer":   ("/oferta/",        "/en/services/"),
-    "about":   ("/o-mnie/",        "/en/about/"),
-    "contact": ("/kontakt/",       "/en/contact/"),
+    "home":    ("/pl/",               "/"),
+    "how":     ("/pl/jak-to-dziala/", "/how-it-works/"),
+    "offer":   ("/pl/oferta/",        "/services/"),
+    "about":   ("/pl/o-mnie/",        "/about/"),
+    "contact": ("/pl/kontakt/",       "/contact/"),
 }
 NAV = {
     "pl": [("home","Strona główna"),("how","Jak to działa"),("offer","Oferta"),("about","O mnie"),("articles","Artykuły"),("contact","Kontakt")],
@@ -318,7 +318,7 @@ META = {
 
 # ---------------- Articles ----------------
 from articles import ARTS
-URLS["articles"] = ("/artykuly/", "/en/articles/")
+URLS["articles"] = ("/pl/artykuly/", "/articles/")
 META["articles"] = {"pl": ("Artykuły o matchmakingu i randkowaniu po polsku | Dobrani",
                            "Praktyczne artykuły o matchmakingu, randkowaniu w Londynie i pracy ze swatką, dla Polaków mieszkających w Wielkiej Brytanii."),
                     "en": ("Articles on Polish Matchmaking & Dating in the UK | Dobrani",
@@ -326,7 +326,7 @@ META["articles"] = {"pl": ("Artykuły o matchmakingu i randkowaniu po polsku | D
 ART_BY_KEY = {}
 for _a in ARTS:
     k = "art_" + _a["id"]
-    URLS[k] = (f'/artykuly/{_a["pl"]["slug"]}/', f'/en/articles/{_a["en"]["slug"]}/')
+    URLS[k] = (f'/pl/artykuly/{_a["pl"]["slug"]}/', f'/articles/{_a["en"]["slug"]}/')
     META[k] = {"pl": (_a["pl"]["title"] + " | Dobrani", _a["pl"]["desc"]), "en": (_a["en"]["title"] + " | Dobrani", _a["en"]["desc"])}
     ART_BY_KEY[k] = _a
 
@@ -419,9 +419,17 @@ def page(key, l):
     other = "en" if P else "pl"
     CUR = ' aria-current="page"'
     nav = "".join(f'<li><a href="{url(k, l)}"{CUR if k == key else ""}>{n}</a></li>' for k, n in NAV[l])
-    sw = (f'<li class="lang-li"><div class="lang" aria-label="{"Język" if P else "Language"}">'
-          + (f'<span aria-current="true">{FLAG_PL}PL</span><a href="{url(key,"en")}" hreflang="en" lang="en">{FLAG_GB}EN</a>' if P
-             else f'<a href="{url(key,"pl")}" hreflang="pl" lang="pl">{FLAG_PL}PL</a><span aria-current="true">{FLAG_GB}EN</span>') + '</div></li>')
+    def gb(n): return FLAG_GB.replace('id="fs"', f'id="fs{n}"').replace('id="ft"', f'id="ft{n}"').replace('url(#fs)', f'url(#fs{n})').replace('url(#ft)', f'url(#ft{n})')
+    def pl_(n): return FLAG_PL
+    def switch(n, cls):
+        lab = "Język" if P else "Language"
+        if P:
+            inner = f'<span aria-current="true">{pl_(n)}PL</span><a href="{url(key,"en")}" hreflang="en" lang="en">{gb(n)}EN</a>'
+        else:
+            inner = f'<a href="{url(key,"pl")}" hreflang="pl" lang="pl">{pl_(n)}PL</a><span aria-current="true">{gb(n)}EN</span>'
+        return f'<div class="lang {cls}" aria-label="{lab}">{inner}</div>'
+    sw = f'<li class="lang-li">{switch("d", "lang-d")}</li>'
+    sw_m = switch("m", "lang-m")
     ga = f'<script>window.PM_GA="{GA_ID}";</script>' if GA_ID else ""
     cc = ""
     if GA_ID:
@@ -439,7 +447,7 @@ def page(key, l):
 <link rel="canonical" href="{me}">
 <link rel="alternate" hreflang="pl" href="{pl_u}">
 <link rel="alternate" hreflang="en" href="{en_u}">
-<link rel="alternate" hreflang="x-default" href="{pl_u}">
+<link rel="alternate" hreflang="x-default" href="{en_u}">
 <meta name="robots" content="index,follow,max-image-preview:large">
 <meta property="og:type" content="{"article" if key.startswith("art_") else "website"}"><meta property="og:site_name" content="Dobrani - Polish Matchmaker">
 <meta property="og:title" content="{esc(title)}"><meta property="og:description" content="{esc(desc)}">
@@ -459,7 +467,7 @@ def page(key, l):
 {TOPBAR if key != "home" else ""}
 <header class="site-header"><div class="wrap nav">
 <a class="brand" href="{url("home", l)}" aria-label="Dobrani by Ania - Polish Matchmaker"><img src="/assets/logo.svg" alt="Dobrani by Ania" width="{LOGO_W}" height="{LOGO_H}"><span class="rule" aria-hidden="true"></span><span class="desc">Polish<br>Matchmaker</span></a>
-<button class="burger" type="button" aria-label="{"Menu" if P else "Menu"}" aria-expanded="false" aria-controls="menu"><svg width="22" height="16" viewBox="0 0 22 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 2h20M1 8h20M1 14h20"/></svg></button>
+{sw_m}<button class="burger" type="button" aria-label="{"Menu" if P else "Menu"}" aria-expanded="false" aria-controls="menu"><svg width="22" height="16" viewBox="0 0 22 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 2h20M1 8h20M1 14h20"/></svg></button>
 <ul class="menu" id="menu">{nav}{sw}</ul>
 </div></header>
 <main id="main">
@@ -497,9 +505,21 @@ def write(path, content):
     with open(full, "w", encoding="utf-8") as f: f.write(content)
 
 def main():
+    import shutil
+    # clear output of earlier layouts (Polish at /, English at /en/) so no stale pages remain
+    for d in ("jak-to-dziala", "oferta", "o-mnie", "kontakt", "artykuly", "en"):
+        shutil.rmtree(os.path.join(ROOT, d), ignore_errors=True)
     for key in URLS:
         for l in ("pl", "en"):
             write(url(key, l), page(key, l))
+    # tiny redirect stubs for the earlier URL layout (the site had just launched)
+    for key in URLS:
+        for l in ("pl", "en"):
+            new_u = url(key, l)
+            old_u = new_u[3:] if l == "pl" else "/en" + new_u
+            if old_u in ("/", "") or old_u == new_u: continue
+            tgt = DOMAIN + new_u
+            write(old_u, f'<!doctype html><html lang="{l}"><head><meta charset="utf-8"><title>Redirecting</title><meta name="robots" content="noindex"><link rel="canonical" href="{tgt}"><meta http-equiv="refresh" content="0;url={new_u}"></head><body><a href="{new_u}">{new_u}</a></body></html>')
     # sitemap with hreflang alternates
     sm = ['<?xml version="1.0" encoding="UTF-8"?>',
           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">']
@@ -508,7 +528,7 @@ def main():
             sm.append(f'<url><loc>{DOMAIN}{url(key,l)}</loc>'
                       f'<xhtml:link rel="alternate" hreflang="pl" href="{DOMAIN}{url(key,"pl")}"/>'
                       f'<xhtml:link rel="alternate" hreflang="en" href="{DOMAIN}{url(key,"en")}"/>'
-                      f'<xhtml:link rel="alternate" hreflang="x-default" href="{DOMAIN}{url(key,"pl")}"/></url>')
+                      f'<xhtml:link rel="alternate" hreflang="x-default" href="{DOMAIN}{url(key,"en")}"/></url>')
     sm.append('</urlset>')
     write("/sitemap.xml", "\n".join(sm))
     write("/robots.txt", f"User-agent: *\nAllow: /\n\nSitemap: {DOMAIN}/sitemap.xml\n")
@@ -525,7 +545,7 @@ def main():
     write("/404.html", '''<!doctype html><html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>404 | Dobrani - Polish Matchmaker</title><meta name="robots" content="noindex">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500&family=Inter:wght@400&display=swap" rel="stylesheet"><link rel="stylesheet" href="/assets/style.css"></head>
 <body><main class="wrap center" style="padding:120px 24px"><span class="eyebrow">404</span><h1>Nie znaleziono strony / Page not found</h1>
-<div class="btns" style="justify-content:center"><a class="btn btn-navy" href="/">Strona główna</a><a class="btn btn-line" href="/en/">Home (English)</a></div></main></body></html>''')
+<div class="btns" style="justify-content:center"><a class="btn btn-navy" href="/">Home</a><a class="btn btn-line" href="/pl/">Strona główna (po polsku)</a></div></main></body></html>''')
     print("built", len(URLS) * 2, "pages")
 
 if __name__ == "__main__":
