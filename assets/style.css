@@ -76,12 +76,12 @@ p{margin:0 0 1.1em}
 .partner.on-light:hover{border-color:var(--gold)}
 
 /* hero */
-.hero{background:var(--navy);color:#fff;padding:92px 0 84px;position:relative}
+.hero{background:linear-gradient(100deg,rgba(30,49,81,.94) 0%,rgba(30,49,81,.86) 42%,rgba(30,49,81,.55) 100%),url('/assets/hero-cafe.jpg') center/cover no-repeat,var(--navy);color:#fff;padding:92px 0 84px;position:relative}
 .hero h1{color:#fff;max-width:17ch}
 .hero .eyebrow{color:#E88DAB}
 .hero .lead{color:#d9e0ec;font-size:1.22rem}
 .hero-grid{display:grid;grid-template-columns:1.25fr .75fr;gap:56px;align-items:center}
-.hero-card{background:rgba(255,255,255,.06);border:1px solid rgba(230,169,97,.35);border-radius:18px;padding:30px}
+.hero-card{background:rgba(30,49,81,.62);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);border:1px solid rgba(230,169,97,.35);border-radius:18px;padding:30px}
 .hero-card h2{font-size:1.5rem;color:#fff;margin-bottom:.7em}
 .hero-card ul{list-style:none;margin:0;padding:0}
 .hero-card li{padding:11px 0 11px 30px;position:relative;border-top:1px solid rgba(255,255,255,.12);color:#e6ebf4;font-size:.98rem;line-height:1.5}
