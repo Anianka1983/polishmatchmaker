@@ -88,7 +88,7 @@ p{margin:0 0 1.1em}
 .hero-card li:first-child{border-top:0}
 .hero-card li:before{content:"";position:absolute;left:2px;top:19px;width:12px;height:7px;border-left:2px solid var(--gold);border-bottom:2px solid var(--gold);transform:rotate(-45deg)}
 .hero-partner{margin-top:2.2rem}
-@media (max-width:900px){.hero{padding:300px 0 60px;background:linear-gradient(180deg,rgba(30,49,81,0) 0,rgba(30,49,81,0) 30%,rgba(30,49,81,.6) 48%,var(--navy) 60%) top/100% 420px no-repeat,url('/assets/hero-cafe.jpg') top center/100% auto no-repeat,var(--navy)}.hero-grid{grid-template-columns:1fr;gap:36px}}
+@media (max-width:900px){.hero{padding:64px 0 60px;background:linear-gradient(180deg,rgba(30,49,81,.35) 0,rgba(30,49,81,.5) 230px,var(--navy) 450px) top/100% 456px no-repeat,url('/assets/hero-cafe.jpg') 55% 0/175% auto no-repeat,var(--navy)}.hero-grid{grid-template-columns:1fr;gap:36px}}
 
 /* sections */
 section{padding:88px 0}
