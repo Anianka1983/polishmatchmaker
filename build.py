@@ -123,13 +123,14 @@ def body_home(l):
 <div class="btns"><a class="btn btn-gold" href="{url("contact", l)}">{t("Umów bezpłatną rozmowę","Book a free consultation")}</a>
 <a class="btn btn-ghost" href="{url("how", l)}">{t("Jak to działa","How it works")}</a></div>
 </div>
-<aside class="hero-card"><h2>{t("Czego można się spodziewać","What you can expect")}</h2><ul>
+<div class="hero-side"><aside class="hero-card"><h2>{t("Czego można się spodziewać","What you can expect")}</h2><ul>
 <li>{t("Pierwsza rozmowa po polsku lub po angielsku","A first conversation in Polish or English")}</li>
 <li>{t("Osobiste dopasowanie, a nie algorytm","Personal matching, not an algorithm")}</li>
 <li>{t("Każda osoba zweryfikowana i nastawiona na poważny związek","Every person vetted and committed to a real relationship")}</li>
-<li>{t("Pełna poufność i brak zobowiązań","Complete confidentiality and no obligation")}</li></ul></aside></div></section>'''
+<li>{t("Pełna poufność i brak zobowiązań","Complete confidentiality and no obligation")}</li></ul></aside>
+<a class="abia" href="{ABIA}" target="_blank" rel="noopener" aria-label="ABIA - Association of British Introduction Agencies"><img src="/assets/abia-badge.svg" alt="ABIA" width="64" height="64"><span><b>{t("Swatka zarejestrowana w ABIA","ABIA-registered matchmaker")}</b><i>abia.org.uk</i></span></a></div></div></section>'''
     trust = f'''<div class="trust"><div class="wrap"><ul>
-<li><a href="{ABIA}" target="_blank" rel="noopener">{t("Zarejestrowani i zatwierdzeni przez ABIA","ABIA registered &amp; approved")}</a></li>
+<li><a href="{ABIA}" target="_blank" rel="noopener">{t("Swatka zarejestrowana w ABIA","ABIA-registered matchmaker")}</a></li>
 <li>{t("Pełna poufność","Complete confidentiality")}</li><li>{t("Bezpłatna rozmowa wstępna","Free initial consultation")}</li>
 <li>{t("Po polsku i po angielsku","Polish &amp; English")}</li></ul></div></div>'''
     namestrip = "" if P else f'''<div class="namestrip"><div class="wrap"><span class="nl"></span><p>{t("<b>Dobrani</b> (doh-BRAH-ni) - po polsku „dobrani do siebie”: osoby, które do siebie pasują.","<b>Dobrani</b> (doh-BRAH-nee) - Polish for “the well-matched”: people who suit one another.")}</p><span class="nl"></span></div></div>'''
