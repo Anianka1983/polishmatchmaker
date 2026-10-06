@@ -302,3 +302,9 @@ details .a{padding:0 24px 22px;color:var(--muted)}
   .burger{padding:8px 9px}
   .nav{gap:0}
 }
+
+/* Article list: one boxed row per article */
+.art-list{display:flex;flex-direction:column;gap:18px;max-width:860px;margin:0 auto}
+.art-list .art-card{padding:26px 30px}
+.art-date{display:block;font-family:var(--label);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--plum);font-weight:600;margin-bottom:.55rem}
+@media (max-width:560px){.art-list .art-card{padding:22px 20px}}

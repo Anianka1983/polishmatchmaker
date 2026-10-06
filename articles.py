@@ -2,7 +2,7 @@
 # Bilingual article data. Each article: id, date, pl/en -> slug, title, desc, lead, sections[(h2, [paragraphs])]
 DATE = "2026-10-04"
 ARTS = [
- dict(id="co-to-jest", date=DATE,
+ dict(id="co-to-jest", date="2026-07-30",
   pl=dict(slug="matchmaking-po-polsku-dla-kogo", title="Matchmaking po polsku: czym jest i dla kogo jest przeznaczony",
    desc="Czym jest prywatny matchmaking, jak działa swatka i komu może pomóc. Praktyczny przewodnik dla Polaków mieszkających w Londynie i w Wielkiej Brytanii.",
    lead="Matchmaking to starsza i bardziej osobista idea, niż mogłoby się wydawać: zamiast samodzielnie przeglądać profile, powierza Pan/Pani poszukiwania człowiekowi, który pozna Pana/Panią naprawdę.",
@@ -25,7 +25,7 @@ ARTS = [
     ("Who matchmaking is for", ["It is most often used by busy people who do not want to spend their evenings on apps, and by those who have been disappointed before and are looking for a serious relationship. It also suits people who value discretion and prefer not to put their profile on public display.",
       "If you are not sure it is the right route, the first conversation is free and without obligation. It is a good chance to ask questions and judge for yourself whether the approach suits you."]),
     ("What working together looks like", ["It begins with an initial conversation, followed by thoughtful matching and, finally, a discreet introduction. We describe each step on the “How it works” page."])])),
- dict(id="londyn", date=DATE,
+ dict(id="londyn", date="2026-08-20",
   pl=dict(slug="randki-w-londynie-dla-polakow", title="Randki w Londynie dla Polaków: dlaczego aplikacje nie zawsze wystarczają",
    desc="Jak szukać partnera jako Polak lub Polka w Londynie i dlaczego aplikacje randkowe nie zawsze się sprawdzają. Wskazówki i alternatywa w postaci matchmakingu.",
    lead="Londyn to miasto ogromnych możliwości, ale poznanie kogoś, kto naprawdę pasuje, bywa tu zaskakująco trudne.",
@@ -48,7 +48,7 @@ ARTS = [
     ("App fatigue", ["It is a common experience that conversations fade without explanation and dates lead nowhere lasting. After a while, many people start looking for another way.",
       "One option is matchmaking: a personal conversation, thoughtful matching and an introduction to someone who is serious about a relationship."]),
     ("What you can do", ["It helps to define clearly what you are looking for and to ask whether searching alone is still working for you. If you would like to talk about an alternative, you are welcome to book a free, confidential conversation."])])),
- dict(id="pierwsza-rozmowa", date=DATE,
+ dict(id="pierwsza-rozmowa", date="2026-09-15",
   pl=dict(slug="pierwsza-rozmowa-ze-swatka", title="Pierwsza rozmowa ze swatką: czego się spodziewać",
    desc="Jak wygląda pierwsza, bezpłatna rozmowa ze swatką, jakie pytania warto zadać i jak się przygotować. Matchmaking po polsku w Londynie i UK.",
    lead="Pierwsza rozmowa to okazja, by się poznać i sprawdzić, czy ten sposób szukania partnera jest dla Pana/Pani.",
@@ -71,7 +71,7 @@ ARTS = [
     ("Questions worth asking", ["It is worth asking how the process works, how long matching takes, how your privacy is protected and what memberships are available. A good matchmaker answers openly and without pressure.",
       "You can also find membership information on the services page."]),
     ("What happens next", ["After the conversation, the decision to continue is yours. The first conversation is free and without obligation."])])),
- dict(id="swatka-czy-aplikacja", date=DATE,
+ dict(id="swatka-czy-aplikacja", date="2026-10-04",
   pl=dict(slug="swatka-czy-aplikacja-randkowa", title="Swatka czy aplikacja randkowa: jak wybrać właściwą drogę",
    desc="Porównanie matchmakingu i aplikacji randkowych: czas, prywatność, jakość dopasowań i koszty. Jak wybrać drogę, która pasuje do Pana/Pani.",
    lead="Obie drogi mają swoje miejsce. Pytanie brzmi, która lepiej odpowiada Pana/Pani sytuacji.",

@@ -330,13 +330,19 @@ for _a in ARTS:
     META[k] = {"pl": (_a["pl"]["title"] + " | Dobrani", _a["pl"]["desc"]), "en": (_a["en"]["title"] + " | Dobrani", _a["en"]["desc"])}
     ART_BY_KEY[k] = _a
 
+_MON = {"en": ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+        "pl": ["sty","lut","mar","kwi","maj","cze","lip","sie","wrz","paź","lis","gru"]}
+def fmt_date(iso, l):
+    y, m, d = iso.split("-")
+    return f"{d} {_MON[l][int(m)-1]} {y}"
+
 def art_cards(l, exclude=None):
     P = l == "pl"
     out = ""
-    for a in ARTS:
+    for a in sorted(ARTS, key=lambda x: x["date"], reverse=True):
         if exclude and a["id"] == exclude: continue
         d = a[l]
-        out += (f'<a class="card art-card" href="{url("art_"+a["id"], l)}"><h3>{esc(d["title"])}</h3><p>{esc(d["desc"])}</p>'
+        out += (f'<a class="card art-card" href="{url("art_"+a["id"], l)}"><time class="art-date" datetime="{a["date"]}">{fmt_date(a["date"], l)}</time><h3>{esc(d["title"])}</h3><p>{esc(d["desc"])}</p>'
                 f'<span class="more">{"Czytaj dalej" if P else "Read more"} &rarr;</span></a>')
     return out
 
@@ -345,18 +351,18 @@ def body_articles(l):
     hero = f'''<section class="page-hero"><div class="wrap"><span class="eyebrow">{"Artykuły" if P else "Articles"}</span>
 <h1>{"Matchmaking i randkowanie po polsku" if P else "Polish matchmaking and dating"}</h1>
 <p class="lead">{"Praktyczne wskazówki dla Polaków w Londynie i w całej Wielkiej Brytanii." if P else "Practical guidance for Poles in London and across the UK."}</p></div></section>'''
-    return hero + f'<section><div class="wrap"><div class="grid2x">{art_cards(l)}</div></div></section>' + cta(l)
+    return hero + f'<section><div class="wrap"><div class="art-list">{art_cards(l)}</div></div></section>' + cta(l)
 
 def body_article(key, l):
     P = l == "pl"
     a = ART_BY_KEY[key]; d = a[l]
     hero = f'''<section class="page-hero"><div class="wrap"><span class="eyebrow"><a href="{url("articles", l)}">{"Artykuły" if P else "Articles"}</a></span>
 <h1>{esc(d["title"])}</h1><p class="lead">{esc(d["lead"])}</p>
-<p class="byline">{"Autor: Ania, Dobrani · " if P else "By Ania (Anna), Dobrani · "}<time datetime="{a["date"]}">{a["date"]}</time></p></div></section>'''
+<p class="byline">{"Autor: Ania, Dobrani · " if P else "By Ania (Anna), Dobrani · "}<time datetime="{a["date"]}">{fmt_date(a["date"], l)}</time></p></div></section>'''
     body = "".join(f'<h2>{esc(h)}</h2>' + "".join(f'<p>{esc(p)}</p>' for p in ps) for h, ps in d["sections"])
     links = (f'<p class="inl">{"Zobacz także: " if P else "See also: "}<a href="{url("how", l)}">{"Jak to działa" if P else "How it works"}</a> · '
              f'<a href="{url("offer", l)}">{"Oferta" if P else "Services"}</a> · <a href="{url("contact", l)}">{"Bezpłatna rozmowa" if P else "Free consultation"}</a></p>')
-    more = f'<section class="alt"><div class="wrap"><div class="head"><h2>{"Czytaj również" if P else "Keep reading"}</h2></div><div class="grid2x">{art_cards(l, a["id"])}</div></div></section>'
+    more = f'<section class="alt"><div class="wrap"><div class="head"><h2>{"Czytaj również" if P else "Keep reading"}</h2></div><div class="art-list">{art_cards(l, a["id"])}</div></div></section>'
     return hero + f'<section><div class="wrap art">{body}{links}</div></section>' + more + cta(l)
 
 BODIES["articles"] = body_articles
@@ -368,7 +374,7 @@ def body_home_x(l):
     P = l == "pl"
     h = _home_orig(l)
     teaser = (f'<section class="alt"><div class="wrap"><div class="head"><span class="eyebrow">{"Artykuły" if P else "Articles"}</span>'
-              f'<h2>{"Z naszego poradnika" if P else "From our guide"}</h2></div><div class="grid2x">{art_cards(l)}</div>'
+              f'<h2>{"Z naszego poradnika" if P else "From our guide"}</h2></div><div class="art-list">{art_cards(l)}</div>'
               f'<p class="center" style="margin-top:28px"><a class="btn btn-line" href="{url("articles", l)}">{"Wszystkie artykuły" if P else "All articles"}</a></p></div></section>')
     i = h.rfind('<section class="cta">')
     return h[:i] + teaser + h[i:] if i != -1 else h + teaser
